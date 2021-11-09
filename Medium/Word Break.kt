@@ -1,4 +1,4 @@
-//BFS & set
+//BFS & Memo set
 //but timeout when  large number of wordDict 
 
 class Solution {
@@ -41,3 +41,40 @@ class Solution {
     }
 }
 
+
+
+//=======================================================
+
+//Solution by Dynamic Programming
+
+
+
+class Solution {
+    fun wordBreak(s: String, wordDict: List<String>): Boolean {
+     var len = s.count()+1 
+     var dp  = Array<Boolean>(len){false}
+     
+     dp[0] =true
+    for(i in 0..(s.count()-1) )
+    {
+        if(dp[i] == false) continue
+        
+        var s_temp =s.drop(i)
+        for(wd in wordDict)
+        {
+            if(s_temp.count() >= wd.count())
+            {
+              if(s_temp.substring(0,wd.count()) == wd)
+              {
+                dp[i + wd.count()] =true
+              }  
+            }
+            
+        }
+    }
+         
+
+     
+     return dp[len-1]
+    }
+}
